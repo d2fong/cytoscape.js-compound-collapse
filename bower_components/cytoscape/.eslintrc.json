@@ -1,0 +1,14 @@
+{
+    "env": {
+        "commonjs": true,
+        "shared-node-browser": true,
+        "mocha": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 5
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-redeclare": "off"
+    }
+}

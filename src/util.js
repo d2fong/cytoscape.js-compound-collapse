@@ -18,24 +18,30 @@ const sameDepthNodesRelativeTo =  (cy, node) => {
 
 const isMetaEdge = (edge) => edge.hasClass('meta-edge');
 
-const barrowEdges = (node) => {
-  const collapsedCollection = node.union(node.descendants());
-  const collapsedComplement = collapsedCollection.complement();
+// turn all incoming/outgoing edges into meta edges 
+// i.e all edges coming/going from the collapsed node's children 
+// will now point to the collapsed node itself
+const collapseEdges = (collapsedNode) => {
+  const collapsedCollection = collapsedNode.union(collapsedNode.descendants());
 
-  const connectingEdges = collapsedCollection.edgesWith(collapsedComplement);
+  const outgoerEdges = collapsedCollection.outgoers();
+  const incomersEdges = collapsedCollection.incomers();
+  const connectingEdges = outgoerEdges.union(incomerEdges);
 
-  connectingEdges.forEach((edge) => {
-    const src = edge.source();
-    const tgt = edge.target();
+  connectingEdges.filter((edge) => !isMetaEdge(edge)).forEach((edge) => {
+    edge.addClass('meta-edge');
+    edge.scratch('_original-endpoints', {source: edge.source(), target: edge.target()});
+  });
 
-    if (!isMetaEdge(edge)) {
-      edge.scratch('_original-endpoints', {source: src, target: tgt});
-      edge.addClass('meta-edge');
-    }
+  incomerEdges.forEach((incomerEdge) => {
+    incomerEdge.move({
+      target: collapsedNode.id()
+    });
+  });
 
-    edge.move({
-      source: collapsedCollection.contains(src) ? src.id() : node.id(),
-      target: collapsedCollection.contains(tgt) ? tgt.id() : node.id()
+  outgoerEdges.forEach((outGoerEdge) => {
+    outgoerEdges.move({
+      source: collapsedNode.id()
     });
   });
 };
@@ -51,7 +57,7 @@ const nonRemovedParent = (node) => {
   return current;
 }
 
-const repairEdges = (node) => {
+const expandEdges = (node) => {
   const metaEdges = node.connectedEdges('.meta-edge');
 
   metaEdges.forEach((edge) => {
@@ -80,3 +86,5 @@ const repairEdges = (node) => {
 const isOuterNode = (node, root) => {
   return (node !== root) && !node.ancestors().contains(root);
 };
+
+const lowestCommonAncestor = (nodes) => nodes.commonAncestors().first();

@@ -1,3 +1,8 @@
+const opts = {
+  repositionNodesAfter: 'both' // reposition nodes on expand or reclaim space on collapse,
+  // can be one of 'both', 'collapse', 'expand'
+}
+
 // get nodes that don't have a parent or nodes with a parent not found in
 // the input collection
 const topLevelNodes = (eles) => {
@@ -81,6 +86,36 @@ const expandEdges = (node) => {
         edge.removeScratch('_original-endpoints');
     }
   });
+};
+
+const collapse = (node, opts) => {
+  node.trigger('compoundcollapse.before-collapse');
+  node.data('compoundcollapse.size-before', node.layoutDimensions());
+
+  collapseEdges(node);
+
+  const collapsedCollection = node.descendants();
+  
+  node.data('compoundcollapse.collapsed-collection', collapsedCollection);
+  collapsedCollection.remove();
+  node.data('compoundcollapse.size-after', node.layoutDimensions());
+
+  if (opts.repositionNodesAfter === 'both' || opts.repositionNodesAfter === 'collapse') {
+    // compute delta size (size-after - size-before)
+    // check if it has siblings, if orphan, then all orphan nodes
+    // for each of the nodes in the collection above:
+    //  node above collapsed node -> increase y pos by size delta
+    //  node below collapsed node -> decrease y pos by size delta
+    //  node left of collapsed node -> increase x pos by size delta
+    //  node right of collapsed node -> decrease x pos by size delta
+
+  }
+
+  node.trigger('compoundcollapes.after-collapse');
+};
+
+const expand = (node, opts) => {
+
 };
 
 const isOuterNode = (node, root) => {

@@ -101,21 +101,57 @@ const collapse = (node, opts) => {
   node.data('compoundcollapse.size-after', node.layoutDimensions());
 
   if (opts.repositionNodesAfter === 'both' || opts.repositionNodesAfter === 'collapse') {
-    // compute delta size (size-after - size-before)
-    // check if it has siblings, if orphan, then all orphan nodes
-    // for each of the nodes in the collection above:
-    //  node above collapsed node -> increase y pos by size delta
-    //  node below collapsed node -> decrease y pos by size delta
-    //  node left of collapsed node -> increase x pos by size delta
-    //  node right of collapsed node -> decrease x pos by size delta
-
+    const sizeDiff = {
+      x: ( node.data('compoundcollapse.size-before').w - node.data('compoundcollapse.size-after').w ) / 2,
+      y: ( node.data('compoundcollapse.size-before').h - node.data('compoundcollapse.size-after').h ) / 2
+    };
+    const siblings = sameDepthNodesRelativeTo(this.cy, node);
+    const nodePos = node.position();
+    siblings.forEach((sibling) => {
+      const sibPos = sibling.position();
+      sibling.position({
+        x: sibPos.x > nodePos.x ? sibPos.x - sizeDiff.x : sibPos.x + sizeDiff.x,
+        y: sibPos.y > nodePos.y ? sibPos.y - sizeDiff.y : sibPos.y + sibPos.y 
+      });
+    });
   }
 
   node.trigger('compoundcollapes.after-collapse');
 };
 
+// restore nodes
+// restore meta edges
+// reposition nodes independant of layout option
+// think about interactions between supplying a layout and not supplying a layout
 const expand = (node, opts) => {
+  node.trigger('compoundcollapse.before-expand');
+  node.data('compoundcollapse.collapsed-collection').positions(node.position());
+  node.data('compoundcollapse-collapsed-collection').restore();
 
+  if (opts.layout) {
+    const layout = node.children().layout(opts.layout).run();
+    layout.pon('layoutstop').then((evt) => {
+      const curSize = node.layoutDimensions();
+      const prevSize = node.data('compoundcollapse.size-after');
+
+
+      const sizeDiff = {
+        x: ( curSize.w - prevSize.w )  / 2,
+        y: ( curSize.h - prevSize.h ) / 2
+      };
+      const nodePos = node.position();
+      const siblings = sameDepthNodesRelativeTo(siblings);
+
+      siblings.forEach((sibling) => {
+        const sibPos = sibling.position();
+        sibling.position({
+          x: sibPos.x > nodePos.x ? sibPos.x + sizeDiff.x : sibPos.x - sizeDiff.x,
+          y: sibPos.y > nodePos.y ? sibPos.y + sizeDiff.y : sibPos.y - sibPos.y 
+        });
+      });
+      node.trigger('compoundcollapse.after-expand');
+    });
+  }
 };
 
 const isOuterNode = (node, root) => {

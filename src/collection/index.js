@@ -1,8 +1,14 @@
-module.exports = function(){
-  let eles = this;
-  let cy = this.cy();
-
-  // your extension impl...
-
-  return this; // chainability
+const api = {
+  isCollapsed (node) {
+    return node.data('compound.collapse-collapsed');
+  },
+  isExpanded (node) {
+    return !this.isCollapsed(node);
+  },
+  collapse (eles) {
+  },
+  expand (eles) {
+  }
 };
+
+module.exports = api;

@@ -81,9 +81,14 @@
 					}
 				});
 
-				// demo your collection ext
-				cy.elements().compound-collapse( /* args... */ );
-
+				cy.on('tap', '$node > node', function(evt) {
+					const node = evt.target;
+					if (node.isCollapsed()) {
+						node.expand();
+					} else {
+						node.collapse();
+					}
+				});
 			});
 		</script>
 	</head>

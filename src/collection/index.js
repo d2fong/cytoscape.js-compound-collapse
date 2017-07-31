@@ -8,6 +8,9 @@ const api = {
   collapse (eles) {
   },
   expand (eles) {
+  },
+  isMetaEdge (edge) {
+    return edge.hasClass('compound.collapse-meta-edge');
   }
 };
 

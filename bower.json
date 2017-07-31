@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-compound-collapse",
-  "description": "Collapse functionality for compound nodes",
+  "description": "Collapse&#x2F;expand functionality for compound nodes in Cytoscape.js",
   "main": "cytoscape-compound-collapse.js",
   "dependencies": {
     "cytoscape": "^3.0.0"

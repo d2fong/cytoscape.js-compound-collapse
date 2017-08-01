@@ -53,30 +53,35 @@
 						{
 							selector: 'edge',
 							style: {
-								'curve-style': 'bezer',
+								'curve-style': 'bezier',
 								'target-arrow-shape': 'triangle'
 							}
 						}
 					],
 
+					layout: { name: 'grid' },
 					elements: {
 						nodes: [
-							{ data: { id: 'p', name: 'parent' } },
-							{ data: { id: 'j', name: 'Jerry', parent: 'p' } },
-							{ data: { id: 'e', name: 'Elaine', parent: 'p' } },
-							{ data: { id: 'k', name: 'Kramer', parent: 'p' } },
-							{ data: { id: 'g', name: 'George', parent: 'p' } }
+							{ data: { id: 'p0', name: 'parent0' } },
+							{ data: { id: 'j0', name: 'Jerry', parent: 'p0' } },
+							{ data: { id: 'e0', name: 'Elaine', parent: 'p0' } },
+							{ data: { id: 'k0', name: 'Kramer', parent: 'p0' } },
+							{ data: { id: 'g0', name: 'George', parent: 'p0' } },
+							{ data: { id: 'p1', name: 'parent1' } },
+							{ data: { id: 'j1', name: 'Jerry', parent: 'p1' } },
+							{ data: { id: 'e1', name: 'Elaine', parent: 'p1' } },
+							{ data: { id: 'k1', name: 'Kramer', parent: 'p1' } },
+							{ data: { id: 'g1', name: 'George', parent: 'p1' } }
 						],
 						edges: [
-							{ data: { source: 'j', target: 'e' } },
-							{ data: { source: 'j', target: 'k' } },
-							{ data: { source: 'j', target: 'g' } },
-							{ data: { source: 'e', target: 'j' } },
-							{ data: { source: 'e', target: 'k' } },
-							{ data: { source: 'k', target: 'j' } },
-							{ data: { source: 'k', target: 'e' } },
-							{ data: { source: 'k', target: 'g' } },
-							{ data: { source: 'g', target: 'j' } }
+							{ data: { source: 'j0', target: 'e0' } },
+							{ data: { source: 'e0', target: 'k0' } },
+							{ data: { source: 'k0', target: 'g0' } },
+							{ data: { source: 'g0', target: 'j0' } },
+							{ data: { source: 'g1', target: 'g0' } },
+							{ data: { source: 'k1', target: 'k0' } },
+							{ data: { source: 'e1', target: 'e0' } },
+							{ data: { source: 'j1', target: 'j0' } }
 						]
 					}
 				});

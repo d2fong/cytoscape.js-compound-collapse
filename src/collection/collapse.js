@@ -1,5 +1,3 @@
-const util = require('./util');
-
 // turn all incoming/outgoing edges into meta edges 
 // i.e all edges coming/going from the collapsed node's children 
 // will now point to the collapsed node itself
@@ -26,6 +24,7 @@ const collapseEdges = (collapsedNode) => {
 
 const collapse = (node, opts) => {
   node.trigger('compoundcollapse.before-collapse');
+  node.data('compoundcollapse.collapsed', true);
   node.data('compoundcollapse.size-before', node.layoutDimensions({}));
 
   collapseEdges(node);

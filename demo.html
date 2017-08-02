@@ -86,8 +86,9 @@
 					}
 				});
 
-				cy.on('tap', '$node > node', function(evt) {
+				cy.on('tap', 'node', function(evt) {
 					const node = evt.target;
+					console.log(node);
 					if (node.isCollapsed()) {
 						node.expand();
 					} else {

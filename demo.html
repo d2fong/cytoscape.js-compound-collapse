@@ -67,13 +67,17 @@
 							{ data: { id: 'e0', name: 'Elaine', parent: 'p0' } },
 							{ data: { id: 'k0', name: 'Kramer', parent: 'p0' } },
 							{ data: { id: 'g0', name: 'George', parent: 'p0' } },
+							{ data: { id: 'pp0', name: 'pParent0', parent: 'p0' } },
+							{ data: { id: 'c0', name: 'c0', parent: 'pp0' } },
+							{ data: { id: 'c1', name: 'c1', parent: 'pp0' } },
 							{ data: { id: 'p1', name: 'parent1' } },
 							{ data: { id: 'j1', name: 'Jerry', parent: 'p1' } },
 							{ data: { id: 'e1', name: 'Elaine', parent: 'p1' } },
 							{ data: { id: 'k1', name: 'Kramer', parent: 'p1' } },
 							{ data: { id: 'g1', name: 'George', parent: 'p1' } }
 						],
-						edges: [
+						edges: [							
+							{ data: { source: 'c1', target: 'k1' } },
 							{ data: { source: 'j0', target: 'e0' } },
 							{ data: { source: 'e0', target: 'k0' } },
 							{ data: { source: 'k0', target: 'g0' } },

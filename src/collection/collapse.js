@@ -7,17 +7,19 @@ const collapseEdges = (collapsedNode) => {
 
   metaEdgeCandidates.forEach((edge) => {
     if (!descendants.contains(edge.source())) {
+      edge.data('compoundcollapse.original-endpoints', {source: edge.source(), target: edge.target()});
       edge.move({
         target: collapsedNode.id() 
       });
-      edge.addClass('compoundcollapse.meta-edge');
+      edge.addClass('compoundcollapse-meta-edge');
     }
 
     if (!descendants.contains(edge.target())) {
+      edge.data('compoundcollapse.original-endpoints', {source: edge.source(), target: edge.target()});
       edge.move({
         source: collapsedNode.id()
       });
-      edge.addClass('compoundcollapse.meta-edge');
+      edge.addClass('compoundcollapse-meta-edge');
     }
   });
 };

@@ -9,7 +9,7 @@ const api = {
     return !this.isCollapsed(node);
   },
   isMetaEdge (edge) {
-    return edge.hasClass('compoundcollapse.meta-edge');
+    return edge.hasClass('compoundcollapse-meta-edge');
   },
   collapse (eles) {
     eles.forEach(ele => collapseImpl(ele));

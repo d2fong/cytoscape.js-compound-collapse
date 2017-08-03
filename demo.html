@@ -77,7 +77,7 @@
 							{ data: { id: 'g1', name: 'George', parent: 'p1' } }
 						],
 						edges: [							
-							{ data: { source: 'c1', target: 'k1' } },
+							{ data: { id: '#c1k1', source: 'c1', target: 'k1' } },
 							{ data: { source: 'j0', target: 'e0' } },
 							{ data: { source: 'e0', target: 'k0' } },
 							{ data: { source: 'k0', target: 'g0' } },
@@ -88,6 +88,10 @@
 							{ data: { source: 'j1', target: 'j0' } }
 						]
 					}
+				});
+
+				cy.on('tap', 'edge', function (evt) {
+					console.log(evt.target);
 				});
 
 				cy.on('tap', 'node', function(evt) {

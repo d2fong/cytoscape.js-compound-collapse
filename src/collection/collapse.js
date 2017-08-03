@@ -7,19 +7,25 @@ const collapseEdges = (collapsedNode) => {
 
   metaEdgeCandidates.forEach((edge) => {
     if (!descendants.contains(edge.source())) {
-      edge.data('compoundcollapse.original-endpoints', {source: edge.source(), target: edge.target()});
-      edge.move({
-        target: collapsedNode.id() 
+      collapsedNode.cy().add({
+        group: 'edges',
+        data: {
+          source: edge.source().id(),
+          target: collapsedNode.id()
+        },
+        classes: 'compoundcollapse-meta-edge'
       });
-      edge.addClass('compoundcollapse-meta-edge');
     }
 
     if (!descendants.contains(edge.target())) {
-      edge.data('compoundcollapse.original-endpoints', {source: edge.source(), target: edge.target()});
-      edge.move({
-        source: collapsedNode.id()
+      collapsedNode.cy().add({
+        group: 'edges',
+        data: {
+          target: edge.target().id(),
+          source: collapsedNode.id()
+        },
+        classes: 'compoundcollapse-meta-edge'
       });
-      edge.addClass('compoundcollapse-meta-edge');
     }
   });
 };
@@ -31,7 +37,7 @@ const collapse = (node, opts) => {
 
   collapseEdges(node);
 
-  const collapsedCollection = node.descendants();
+  const collapsedCollection = node.descendants().union(node.descendants().connectedEdges());
   
   node.data('compoundcollapse.collapsed-collection', collapsedCollection);
   collapsedCollection.remove();

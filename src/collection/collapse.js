@@ -1,6 +1,3 @@
-// turn all incoming/outgoing edges into meta edges 
-// i.e all edges coming/going from the collapsed node's children 
-// will now point to the collapsed node itself
 const addMetaEdges = (collapsedNode) => {
   const descendants = collapsedNode.children();
   const metaEdgeCandidates = descendants.connectedEdges();

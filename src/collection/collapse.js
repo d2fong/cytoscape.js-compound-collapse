@@ -1,8 +1,8 @@
 // turn all incoming/outgoing edges into meta edges 
 // i.e all edges coming/going from the collapsed node's children 
 // will now point to the collapsed node itself
-const collapseEdges = (collapsedNode) => {
-  const descendants = collapsedNode.descendants();
+const addMetaEdges = (collapsedNode) => {
+  const descendants = collapsedNode.children();
   const metaEdgeCandidates = descendants.connectedEdges();
 
   metaEdgeCandidates.forEach((edge) => {
@@ -30,21 +30,26 @@ const collapseEdges = (collapsedNode) => {
   });
 };
 
-const collapse = (node, opts) => {
-  node.trigger('compoundcollapse.before-collapse');
+const collapseCore = (node) => {
   node.data('compoundcollapse.collapsed', true);
   node.data('compoundcollapse.size-before', node.layoutDimensions({}));
 
-  collapseEdges(node);
+  const compoundChildren = node.children().filter((ele) => ele.isParent());
+  compoundChildren.forEach((child) => collapseCore(child));
 
-  const collapsedCollection = node.descendants().union(node.descendants().connectedEdges());
+  addMetaEdges(node);
+  const collapsedCollection = node.children().union(node.children().connectedEdges());
   
   node.data('compoundcollapse.collapsed-collection', collapsedCollection);
   collapsedCollection.remove();
   node.data('compoundcollapse.size-after', node.layoutDimensions({}));
-
-  node.trigger('compoundcollapes.after-collapse');
 };
 
+
+const collapse = (node, opts) => {
+  node.trigger('compoundcollapse.before-collapse');
+  collapseCore(node);
+  node.trigger('compoundcollapes.after-collapse');
+};
 
 module.exports = collapse;

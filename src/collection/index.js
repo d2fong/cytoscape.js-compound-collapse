@@ -3,7 +3,7 @@ const expandImpl = require('./expand');
 
 const api = {
   isCollapsed (node) {
-    return node.data('compoundcollapse.collapsed');
+    return node.data('compoundCollapse.collapsed');
   },
   isExpanded (node) {
     return !this.isCollapsed(node);

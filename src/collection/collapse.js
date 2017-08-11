@@ -40,6 +40,7 @@ const collapseCore = (node) => {
   node.data('compoundCollapse.collapsedCollection', collapsedCollection);
   collapsedCollection.remove();
   node.data('compoundCollapse.sizeAfter', node.layoutDimensions({}));
+  node.addClass('compouncollapse-collapsed-node');
 };
 
 

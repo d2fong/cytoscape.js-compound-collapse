@@ -4,7 +4,14 @@ cytoscape-compound-collapse
 
 ## Description
 
-Collapse&#x2F;expand functionality for compound nodes in Cytoscape.js
+Collapse&#x2F;expand functionality for compound nodes in Cytoscape.js.
+
+Based on the paper:
+
+```
+U. Dogrusoz and B. Genc, "A Multi-Graph Approach to Complexity Management in Interactive Graph Visualization", Computers & Graphics, 30(1), pp. 86-97, 2006.
+
+```
 
 
 ## Dependencies

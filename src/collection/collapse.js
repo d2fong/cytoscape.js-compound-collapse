@@ -44,9 +44,9 @@ const collapseCore = (node) => {
 
 
 const collapse = (node, opts) => {
-  node.trigger('compoundcollapse.beforeCollapse');
+  node.trigger('compoundCollapse.beforeCollapse');
   collapseCore(node);
-  node.trigger('compoundcollapse.afterCollapse');
+  node.trigger('compoundCollapse.afterCollapse');
 };
 
 module.exports = collapse;

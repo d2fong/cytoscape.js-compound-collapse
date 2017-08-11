@@ -10,7 +10,6 @@ Collapse&#x2F;expand functionality for compound nodes in Cytoscape.js
 ## Dependencies
 
  * Cytoscape.js ^3.0.0
- * <List your dependencies here please>
 
 
 ## Usage instructions
@@ -26,34 +25,64 @@ ES import:
 
 ```js
 import cytoscape from 'cytoscape';
-import compound-collapse from 'cytoscape-compound-collapse';
+import compoundCollapse from 'cytoscape-compound-collapse';
 
-cytoscape.use( compound-collapse );
+cytoscape.use( compoundCollapse );
 ```
 
 CommonJS require:
 
 ```js
 let cytoscape = require('cytoscape');
-let compound-collapse = require('cytoscape-compound-collapse');
+let compoundCollapse = require('cytoscape-compound-collapse');
 
-cytoscape.use( compound-collapse ); // register extension
+cytoscape.use( compoundCollapse ); // register extension
 ```
 
 AMD:
 
 ```js
-require(['cytoscape', 'cytoscape-compound-collapse'], function( cytoscape, compound-collapse ){
-  compound-collapse( cytoscape ); // register extension
+require(['cytoscape', 'cytoscape-compound-collapse'], function( cytoscape, compoundCollapse ){
+  compoundCollapse( cytoscape ); // register extension
 });
 ```
 
 Plain HTML/JS has the extension registered for you automatically, because no `require()` is needed.
 
+## Meta edges
+Let N be the node to collapse.
 
-## API
+Let NB be the set of nodes that is not a descendant of N
 
-TODO describe the API of the extension here.
+When a compound node N is collapsed, each edge connecting a descendant of N to a node in NB will be replaced with a ```meta edge```.  Edges that connect {NB, Descendant of N} will now point to {NB, N}.
+
+
+## Classes
+
+* ```compoundcollapse-meta-edge```: meta edges will have this class
+
+## Events
+Node to expand fires events before/after the expand operation:
+
+* compoundCollapse.beforeExpand
+* compoundCollapse.afterExpand
+
+Node to collapse fires events before/after the collapse operation:
+
+* compoundCollapse.beforeCollapse
+* compoundCollapse.afterCollapse
+
+
+## Collection API
+This extension adds the following methods to cytoscape.js elements
+
+### Expand
+
+* ```node.expand()```: Expand the given node, remove applicable meta edges, restore original endpoints.
+* ```node.collapse()```: Collapse the given node, replace original edges with meta edges.
+* ```node.isCollapsed()```: Check if a node is collapsed.
+* ```node.isExpanded()```: Check if a node is expanded.
+* ```edges.metaEdges()```: Return the meta edges from the collection of edges.
 
 
 ## Build targets

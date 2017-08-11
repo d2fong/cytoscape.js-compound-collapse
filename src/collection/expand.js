@@ -10,7 +10,7 @@ const expand = (node, opts) => {
   node.data('compoundCollapse.collapsedCollection').positions(node.position());
   node.data('compoundCollapse.collapsedCollection').restore();
   node.removeData('compoundCollapse.collapsedCollection');
-
+  node.removeClass('compoundcollapse-collapsed-node');
   node.trigger('compoundCollapse.afterExpand');
 };
 

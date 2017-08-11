@@ -71,13 +71,13 @@ When a compound node N is collapsed, each edge connecting a descendant of N to a
 ## Events
 Node to expand fires events before/after the expand operation:
 
-* compoundCollapse.beforeExpand
-* compoundCollapse.afterExpand
+* compoundCollapse.before-expand
+* compoundCollapse.after-expand
 
 Node to collapse fires events before/after the collapse operation:
 
-* compoundCollapse.beforeCollapse
-* compoundCollapse.afterCollapse
+* compoundCollapse.before-collapse
+* compoundCollapse.after-collapse
 
 
 ## Collection API

@@ -3,16 +3,15 @@ const removeMetaEdges = (node) => {
 };
 
 const expand = (node, opts) => {
-  node.trigger('compoundcollapse.before-expand');
+  node.trigger('compoundCollapse.beforeExpand');
  
-  node.data('compoundcollapse.collapsed', false);
+  node.data('compoundCollapse.collapsed', false);
   removeMetaEdges(node);
-  node.data('compoundcollapse.collapsed-collection').positions(node.position());
-  node.data('compoundcollapse.collapsed-collection').restore();
-  node.removeData('compoundcollapse.collapsed-collection');
+  node.data('compoundCollapse.collapsedCollection').positions(node.position());
+  node.data('compoundCollapse.collapsedCollection').restore();
+  node.removeData('compoundCollapse.collapsedCollection');
 
-  node.trigger('compoundcollapse.after-expand');
-
+  node.trigger('compoundCollapse.afterExpand');
 };
 
 

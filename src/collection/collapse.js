@@ -28,8 +28,8 @@ const addMetaEdges = (collapsedNode) => {
 };
 
 const collapseCore = (node) => {
-  node.data('compoundcollapse.collapsed', true);
-  node.data('compoundcollapse.size-before', node.layoutDimensions({}));
+  node.data('compoundCollapse.collapsed', true);
+  node.data('compoundCollapse.sizeBefore', node.layoutDimensions({}));
 
   const compoundChildren = node.children().filter((ele) => ele.isParent());
   compoundChildren.forEach((child) => collapseCore(child));
@@ -37,16 +37,16 @@ const collapseCore = (node) => {
   addMetaEdges(node);
   const collapsedCollection = node.children().union(node.children().connectedEdges());
   
-  node.data('compoundcollapse.collapsed-collection', collapsedCollection);
+  node.data('compoundCollapse.collapsedCollection', collapsedCollection);
   collapsedCollection.remove();
-  node.data('compoundcollapse.size-after', node.layoutDimensions({}));
+  node.data('compoundCollapse.sizeAfter', node.layoutDimensions({}));
 };
 
 
 const collapse = (node, opts) => {
-  node.trigger('compoundcollapse.before-collapse');
+  node.trigger('compoundcollapse.beforeCollapse');
   collapseCore(node);
-  node.trigger('compoundcollapes.after-collapse');
+  node.trigger('compoundcollapse.afterCollapse');
 };
 
 module.exports = collapse;

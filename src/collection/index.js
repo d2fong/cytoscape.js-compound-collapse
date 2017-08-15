@@ -12,10 +12,10 @@ const api = {
     return edge.hasClass('compoundcollapse-meta-edge');
   },
   collapse (eles) {
-    eles.forEach(ele => collapseImpl(ele));
+    eles.filter(ele => this.isExpanded(ele)).forEach(ele => collapseImpl(ele));
   },
   expand (eles) {
-    eles.forEach(ele => expandImpl(ele));
+    eles.filter(ele => this.isCollapsed(ele)).forEach(ele => expandImpl(ele));
   }
 
 };
